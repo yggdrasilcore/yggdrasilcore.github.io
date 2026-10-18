@@ -32,6 +32,9 @@ API = "https://api.github.com"
 # Topics that carry no categorisation value: everything else on a repo is a tag.
 IGNORE_TOPICS = {"wow", "yggdrasilcore"}
 
+# Only repositories carrying this inclusion tag are listed. It is never a category.
+INCLUDE_TOPIC = "yggdrasilcore"
+
 # Repositories that are infrastructure, not projects.
 IGNORE_REPOS = {".github"}
 
@@ -127,13 +130,16 @@ def get_pages_url(owner, name, token):
     return data.get("html_url", "")
 
 
+def topics(repo):
+    return {t.strip().lower() for t in (repo.get("topics") or []) if t.strip()}
+
+
 def classify(repo):
     """Category list from topics, ignoring the `wow` and `yggdrasilcore` tags.
 
     A repository with no remaining topic is not categorised and is dropped.
     """
-    tags = [t.strip().lower() for t in (repo.get("topics") or []) if t.strip()]
-    return sorted({t for t in tags if t not in IGNORE_TOPICS})
+    return sorted(topics(repo) - IGNORE_TOPICS)
 
 
 def readme_hash(text):
@@ -409,6 +415,10 @@ def main():
     kept = set()
     llm_calls = 0
     for repo in sorted(repos, key=lambda r: r["name"].lower()):
+        if INCLUDE_TOPIC not in topics(repo):
+            print("Skipping %s (missing %s tag)" % (repo["name"], INCLUDE_TOPIC),
+                  file=sys.stderr)
+            continue
         cats = classify(repo)
         if not cats:
             print("Skipping %s (no topics)" % repo["name"], file=sys.stderr)

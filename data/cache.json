@@ -1,1 +1,35 @@
-{}
+{
+  "generated": "2026-10-18T05:18:33",
+  "yggdrasilcore/DBM-Yggdrasil": {
+    "readme_sha": "5a227322b459625e",
+    "summary": "No summary available."
+  },
+  "yggdrasilcore/Yggdrasil-WoW": {
+    "readme_sha": "bc17790a884833aa",
+    "summary": "No summary available."
+  },
+  "yggdrasilcore/Yla-Lua-Scripts": {
+    "readme_sha": "6bbe4240890e559d",
+    "summary": "A collection of Eluna fixes and features for AzerothCore."
+  },
+  "yggdrasilcore/mod-anticheat": {
+    "readme_sha": "ce05920cac246b08",
+    "summary": "Yggdrasilcore-compatible anticheat, adapted from AzerothCore's mod-anticheat."
+  },
+  "yggdrasilcore/mod-breaking-news-override": {
+    "readme_sha": "17734b4396343f9e",
+    "summary": "An Azeroth Core module to allow the display of the Breaking News section on the character select screen."
+  },
+  "yggdrasilcore/mod-shadows": {
+    "readme_sha": "4c47375467f2ebca",
+    "summary": "Yggdrasilcore adaptation of AzerothCore's mod-playerbots."
+  },
+  "yggdrasilcore/mod-yla": {
+    "readme_sha": "9860f4e0179c5780",
+    "summary": "Lua engine for Yggdrasilcore, based on the Eluna Lua Engine-derived mod-ALE (AzerothCore Lua Engine)."
+  },
+  "yggdrasilcore/yggdrasilcore": {
+    "readme_sha": "e3d9cd2f22233916",
+    "summary": "Open Source Modular MMO Framework for 3.3.5a 12340"
+  }
+}

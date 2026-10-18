@@ -1,0 +1,35 @@
+{
+  "generated": "2026-10-18T05:00:23",
+  "yggdrasilcore/DBM-Yggdrasil": {
+    "readme_sha": "5a227322b459625e",
+    "summary": "A test summary of this project for the card."
+  },
+  "yggdrasilcore/Yggdrasil-WoW": {
+    "readme_sha": "bc17790a884833aa",
+    "summary": "A test summary of this project for the card."
+  },
+  "yggdrasilcore/Yla-Lua-Scripts": {
+    "readme_sha": "6bbe4240890e559d",
+    "summary": "A test summary of this project for the card."
+  },
+  "yggdrasilcore/mod-anticheat": {
+    "readme_sha": "ce05920cac246b08",
+    "summary": "A test summary of this project for the card."
+  },
+  "yggdrasilcore/mod-breaking-news-override": {
+    "readme_sha": "17734b4396343f9e",
+    "summary": "A test summary of this project for the card."
+  },
+  "yggdrasilcore/mod-shadows": {
+    "readme_sha": "4c47375467f2ebca",
+    "summary": "A test summary of this project for the card."
+  },
+  "yggdrasilcore/mod-yla": {
+    "readme_sha": "9860f4e0179c5780",
+    "summary": "A test summary of this project for the card."
+  },
+  "yggdrasilcore/yggdrasilcore": {
+    "readme_sha": "e3d9cd2f22233916",
+    "summary": "A test summary of this project for the card."
+  }
+}

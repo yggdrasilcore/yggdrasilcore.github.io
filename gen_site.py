@@ -35,7 +35,8 @@ IGNORE_TOPICS = {"wow", "yggdrasilcore"}
 # Only repositories carrying this inclusion tag are listed. It is never a category.
 INCLUDE_TOPIC = "yggdrasilcore"
 
-# Repositories that are infrastructure, not projects.
+# Repositories that are infrastructure, not projects (the home repo is added
+# at runtime from GITHUB_REPOSITORY).
 IGNORE_REPOS = {".github"}
 
 WEBSITE = "https://yggdrasilwow.com"
@@ -402,12 +403,14 @@ def main():
     MODEL = args.model
 
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or ""
+    home = os.environ.get("GITHUB_REPOSITORY", "").split("/")[-1]
+    ignore = IGNORE_REPOS | ({home} if home else set())
 
     cache = load_cache(args.cache)
     budget = {"left": args.limit if args.limit > 0 else 10 ** 9}
 
     repos = [r for r in list_public_repos(args.org, token)
-             if not r["name"] in IGNORE_REPOS and not r["name"].startswith(".")]
+             if not r["name"] in ignore and not r["name"].startswith(".")]
     print("Discovered %d public repositories" % len(repos), file=sys.stderr)
 
     categories = {}

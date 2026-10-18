@@ -1,0 +1,87 @@
+name: pages
+
+# Yggdrasilcore organisation home page. Gathers every public repository in the
+# org that carries the `yggdrasilcore` topic, classifies it by its other topics
+# (ignoring `wow` and `yggdrasilcore`), asks a local qwen model for a short
+# README summary, and deploys the generated site to GitHub Pages.
+#
+# The generator, stylesheet and summary cache live on the `web` branch, which is
+# the default branch, so this workflow runs (and can be dispatched) from here.
+# It rebuilds once every 24 hours and refreshes the cache in place.
+#
+# Repo settings requirement: Pages source must be set to "GitHub Actions".
+
+on:
+  schedule: [{cron: "0 5 * * *"}]
+  workflow_dispatch:
+    inputs:
+      model:
+        description: Ollama model
+        default: qwen3.5:4b
+        required: false
+      limit:
+        description: Max new LLM summaries (0 = unlimited)
+        default: "200"
+        required: false
+  push:
+    branches: [web]
+    paths: [".github/workflows/pages.yml", "gen_site.py", "assets/**"]
+
+permissions:
+  contents: write # push the refreshed cache back to this branch
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out the web branch
+        uses: actions/checkout@v4
+
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Start Ollama
+        run: |
+          (ollama serve &>/tmp/ollama.log &)
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:11434/api/tags >/dev/null && break
+            sleep 1
+          done
+
+      - name: Pull model
+        run: ollama pull "${{ inputs.model || 'qwen3.5:4b' }}"
+
+      - name: Generate site
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ARGS="--org ${{ github.repository_owner }} --cache data/cache.json --out dist --model ${{ inputs.model || 'qwen3.5:4b' }}"
+          if [ "${{ inputs.limit || '200' }}" != "0" ]; then
+            ARGS="$ARGS --limit ${{ inputs.limit || '200' }}"
+          fi
+          python3 gen_site.py $ARGS
+
+      - name: Commit cache back to the web branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cache.json
+          if git diff --cached --quiet; then
+            echo "No cache changes"
+          else
+            git commit -m "pages: refresh repo cache [skip ci]"
+            git push origin web
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with: {path: dist}
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

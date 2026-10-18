@@ -1,1 +1,52 @@
-{}
+{
+  "generated": "2026-10-18T12:52:12",
+  "yggdrasilcore/DBM-Yggdrasil": {
+    "categories": [
+      "addons"
+    ],
+    "readme_sha": "5a227322b459625e",
+    "summary": "DBM-Yggdrasil is a specialized fork of Deadly Boss Mods tailored for the Yggdrasil WoW 3.3.5a server. It extends the original DBM-Warmane codebase with bug fixes and corrected encounter logic to ensure timers and mechanics align precisely with Yggdrasilcore's server-side boss scripts."
+  },
+  "yggdrasilcore/Yla-Lua-Scripts": {
+    "categories": [
+      "yla-lua-scripts"
+    ],
+    "readme_sha": "6bbe4240890e559d",
+    "summary": "Yggdrasilcore is a public repository that provides Lua scripts designed to improve quality of life on AzerothCore servers. The collection focuses primarily on small bug fixes and features intended to correct issues found across multiple core implementations. Users should note that some scripts are still in progress or may not be directly applicable due to differences between specific cores and databases."
+  },
+  "yggdrasilcore/mod-anticheat": {
+    "categories": [
+      "modules"
+    ],
+    "readme_sha": "f4fb1ffa52998d8c",
+    "summary": "mod-anticheat is a Yggdrasilcore-compatible module that detects and reports player movement hacks such as speed, fly, and teleportation. It stores violation reports in the characters database to enable game masters to view them or automatically trigger moderation actions like kicking or banning players. The project also includes optional in-game counter-measures to reset offending players and has been adapted from AzerothCore's original implementation with thread safety improvements."
+  },
+  "yggdrasilcore/mod-breaking-news-override": {
+    "categories": [
+      "modules"
+    ],
+    "readme_sha": "1207e0fb78c45a37",
+    "summary": "The mod-breaking-news-override is a Yggdrasilcore module that displays a customizable breaking news frame on the left side of the character selection screen. It utilizes the Warden Payload Manager to push user-defined HTML content to the client, which renders it upon login based on configuration settings. The project includes setup instructions for creating custom HTML files and notes regarding supported tags and character escaping requirements."
+  },
+  "yggdrasilcore/mod-shadows": {
+    "categories": [
+      "modules"
+    ],
+    "readme_sha": "56ab0c0cebf784b3",
+    "summary": "mod-shadows is a Yggdrasilcore adaptation of AzerothCore's mod-playerbots that adds player-like bots to servers. These bots can act as your own alternate characters or random world wanderers, capable of partying up, questing, leveling, and participating in dungeons, raids, and battlegrounds entirely through chat commands with extensive configuration options. The project hardens the original bot behavior for Yggdrasilcore's threaded architecture while maintaining compatibility only with its specific build environment."
+  },
+  "yggdrasilcore/mod-yla": {
+    "categories": [
+      "modules"
+    ],
+    "readme_sha": "9860f4e0179c5780",
+    "summary": "mod-yla is a modular Lua scripting engine designed for Yggdrasilcore that allows administrators to create custom gameplay features without modifying core server code. It is derived from mod-ALE and includes significant performance improvements such as multistate support and thread safety alignments specific to the Yggdrasilcore architecture. Scripts written for this engine are not interchangeable with those from upstream projects like AzerothCore's mod-ale or Eluna due to divergent API designs and state handling models."
+  },
+  "yggdrasilcore/yggdrasilcore": {
+    "categories": [
+      "emulator"
+    ],
+    "readme_sha": "e3d9cd2f22233916",
+    "summary": "Yggdrasilcore is an open-source framework based on AzerothCore designed to emulate connections and packets for the original World of Warcraft: The Burning Crusade 3.3.5a client. It prioritizes stability by modifying only necessary code while avoiding frequent breaking changes found in upstream releases, allowing developers to extend functionality through a modular architecture."
+  }
+}

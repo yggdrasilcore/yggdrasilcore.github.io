@@ -40,7 +40,7 @@ ORG_URL = "https://github.com/yggdrasilcore"
 
 INTRO = [
     "Yggdrasilcore is an open-source, modular MMORPG framework for the "
-    "abandonware WotLK 3.3.5a (build 12340) client — forged in the fires of "
+    "abandonware WotLK 3.3.5a (build 12340) client, forged in the fires of "
     "World of Warcraft emulation and built to be extended.",
     "We are the team behind Yggdrasil WoW. Every project below is public, and "
     "each one traces its lineage through the emulation family tree:",
@@ -55,7 +55,8 @@ TREE_NOTE = (
 
 SYSTEM_PROMPT = (
     "You are a technical writer for the Yggdrasilcore project. "
-    "Write plain, factual prose. Never use markdown, lists, or headings."
+    "Write plain, factual prose. Never use markdown, lists, or headings. "
+    "Never use em dashes; use commas, colons, or periods instead."
 )
 
 USER_TMPL = (
@@ -127,17 +128,12 @@ def get_pages_url(owner, name, token):
 
 
 def classify(repo):
-    """Category list from topics; falls back to the repository name."""
+    """Category list from topics, ignoring the `wow` and `yggdrasilcore` tags.
+
+    A repository with no remaining topic is not categorised and is dropped.
+    """
     tags = [t.strip().lower() for t in (repo.get("topics") or []) if t.strip()]
-    cats = sorted({t for t in tags if t not in IGNORE_TOPICS})
-    if cats:
-        return cats
-    name = repo["name"].lower()
-    if name.startswith("mod-"):
-        return ["modules"]
-    if name.startswith("dbm") or "addon" in name:
-        return ["addons"]
-    return ["other"]
+    return sorted({t for t in tags if t not in IGNORE_TOPICS})
 
 
 def readme_hash(text):
@@ -161,12 +157,22 @@ def ollama_generate(model, prompt, endpoint):
         return json.load(resp).get("response", "")
 
 
-def summarize(repo, readme, model, endpoint, cache, budget):
-    """Return (summary, used_llm). Uses the cache keyed on readme hash."""
+def summarize(repo, readme, cats, model, endpoint, cache, budget):
+    """Return (summary, used_llm).
+
+    The cache is keyed on the repository and invalidated when the README hash
+    changes or when the repository's categories no longer match the ones the
+    cached summary was generated for.
+    """
     key = repo["full_name"]
     digest = readme_hash(readme)
     entry = cache.get(key)
-    if entry and entry.get("readme_sha") == digest and entry.get("summary"):
+    if (
+        entry
+        and entry.get("readme_sha") == digest
+        and entry.get("summary")
+        and entry.get("categories") == cats
+    ):
         return entry["summary"], False
     if not readme.strip():
         return repo.get("description") or "No README is available for this project.", False
@@ -181,7 +187,7 @@ def summarize(repo, readme, model, endpoint, cache, budget):
     summary = THINK_RE.sub("", ollama_generate(model, prompt, endpoint)).strip()
     if not summary:
         summary = repo.get("description") or "No summary available."
-    cache[key] = {"readme_sha": digest, "summary": summary}
+    cache[key] = {"readme_sha": digest, "summary": summary, "categories": cats}
     return summary, True
 
 
@@ -400,14 +406,19 @@ def main():
 
     categories = {}
     prepared = []
+    kept = set()
     llm_calls = 0
     for repo in sorted(repos, key=lambda r: r["name"].lower()):
+        cats = classify(repo)
+        if not cats:
+            print("Skipping %s (no topics)" % repo["name"], file=sys.stderr)
+            continue
+        kept.add(repo["full_name"])
         readme = get_readme(args.org, repo["name"], token)
         summary, used = summarize(
-            repo, readme, args.model, args.endpoint, cache, budget
+            repo, readme, cats, args.model, args.endpoint, cache, budget
         )
         llm_calls += int(used)
-        cats = classify(repo)
         prepared.append(
             {
                 "name": repo["name"],
@@ -424,6 +435,9 @@ def main():
         )
         for cat in cats:
             categories.setdefault(cat, []).append(prepared[-1])
+
+    for stale in [k for k in cache if k not in kept]:
+        del cache[stale]
     print("LLM summaries generated: %d" % llm_calls, file=sys.stderr)
 
     if os.path.isdir(args.out):

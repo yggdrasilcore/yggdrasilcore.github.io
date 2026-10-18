@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-18T05:29:43",
+  "generated": "2026-10-18T11:50:52",
   "yggdrasilcore/DBM-Yggdrasil": {
     "categories": [
       "addons"
@@ -18,7 +18,7 @@
     "categories": [
       "modules"
     ],
-    "readme_sha": "ce05920cac246b08",
+    "readme_sha": "f4fb1ffa52998d8c",
     "summary": "Yggdrasilcore-compatible anticheat, adapted from AzerothCore's mod-anticheat."
   },
   "yggdrasilcore/mod-breaking-news-override": {

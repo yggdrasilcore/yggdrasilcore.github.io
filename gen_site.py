@@ -153,7 +153,8 @@ def ollama_generate(model, prompt, endpoint):
         "prompt": prompt,
         "system": SYSTEM_PROMPT,
         "stream": False,
-        "options": {"temperature": 0.2, "num_predict": 220},
+        "think": False,
+        "options": {"temperature": 0.2, "num_predict": 512},
     }
     req = urllib.request.Request(
         endpoint.rstrip("/") + "/api/generate",

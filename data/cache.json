@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-18T13:16:32",
+  "generated": "2026-10-19T10:24:22",
   "yggdrasilcore/DBM-Yggdrasil": {
     "categories": [
       "addons"
@@ -39,8 +39,8 @@
     "categories": [
       "modules"
     ],
-    "readme_sha": "9860f4e0179c5780",
-    "summary": "mod-yla is a modular Lua scripting engine designed for Yggdrasilcore that allows administrators to create custom gameplay features without modifying core server code. It is derived from mod-ALE and includes significant performance improvements such as multistate support and thread safety alignments specific to the Yggdrasilcore architecture. Scripts written for this engine are not interchangeable with those from upstream projects like AzerothCore's mod-ale or Eluna due to divergent API designs and state handling models."
+    "readme_sha": "2af01e2bda5ad2b4",
+    "summary": "mod-yla is a modular Lua scripting engine designed for Yggdrasilcore that enables server administrators to create custom gameplay features without modifying core code. It functions as a specialized fork of mod-ale, offering significant performance improvements such as multistate support and thread safety while remaining incompatible with AzerothCore or Eluna scripts. The project provides detailed documentation on its unique information dissemination flow and installation instructions for various Lua versions including LuaJIT and Lua 5.2 through 5.4."
   },
   "yggdrasilcore/yggdrasilcore": {
     "categories": [

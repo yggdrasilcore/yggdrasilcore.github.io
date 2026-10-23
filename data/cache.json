@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-22T09:43:29",
+  "generated": "2026-10-23T09:41:36",
   "yggdrasilcore/DBM-Yggdrasil": {
     "categories": [
       "addons"
@@ -46,7 +46,7 @@
     "categories": [
       "emulator"
     ],
-    "readme_sha": "e3d9cd2f22233916",
-    "summary": "Yggdrasilcore is an open-source framework based on AzerothCore designed to emulate connections and packets for the original World of Warcraft: The Burning Crusade 3.3.5a client. It prioritizes stability by modifying only necessary code while avoiding frequent breaking changes found in upstream releases, allowing developers to extend functionality through a modular architecture."
+    "readme_sha": "e9c3a2ca1f983e13",
+    "summary": "Yggdrasilcore is a modular open-source framework built on AzerothCore designed to emulate connections and packets for the original World of Warcraft: The Burning Crusade 3.3.5a client. It prioritizes stability by implementing thread safety, improved pathing, and expanded GUID limits while maintaining flexibility through support for custom modules. Although it is privately managed, the project serves as an educational tool for exploring the abandoned WotLK client without claiming any Blizzard intellectual property rights."
   }
 }

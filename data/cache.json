@@ -1,18 +1,11 @@
 {
-  "generated": "2026-11-18T13:33:11",
+  "generated": "2026-11-19T13:59:50",
   "yggdrasilcore/DBM-Yggdrasil": {
     "categories": [
       "addons"
     ],
     "readme_sha": "5a227322b459625e",
     "summary": "DBM-Yggdrasil is a specialized fork of Deadly Boss Mods tailored for the Yggdrasil WoW 3.3.5a server. It extends the original DBM-Warmane codebase with bug fixes and corrected encounter logic to ensure timers and mechanics align precisely with Yggdrasilcore's server-side boss scripts."
-  },
-  "yggdrasilcore/Yla-Lua-Scripts": {
-    "categories": [
-      "yla-lua-scripts"
-    ],
-    "readme_sha": "6bbe4240890e559d",
-    "summary": "Yggdrasilcore is a public repository that provides Lua scripts designed to improve quality of life on AzerothCore servers. The collection focuses primarily on small bug fixes and features intended to correct issues found across multiple core implementations. Users should note that some scripts are still in progress or may not be directly applicable due to differences between specific cores and databases."
   },
   "yggdrasilcore/mod-anticheat": {
     "categories": [
